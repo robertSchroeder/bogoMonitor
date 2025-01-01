@@ -5,4 +5,4 @@ Monitors "buy one get one" deals for products of interest from Publix super mark
 
 Click the image below to watch the project demo on YouTube:
 
-[![Watch the video](https://www.youtube.com/watch?v=eGlA3Xnp1Rw)
+[Watch the video](https://www.youtube.com/watch?v=eGlA3Xnp1Rw)
