@@ -4,7 +4,9 @@ const puppeteer = require('puppeteer');
 
 (async () => {
 
-    const browser = await puppeteer.launch({headless:false,devtools: true ,args: ['--disable-infobars'],});
+
+    // Disabling infobars from the headless browser seems to make it a bit faster. 
+    const browser = await puppeteer.launch({headless:true,args: ['--disable-infobars']});
     
     const page = await browser.newPage();
 
