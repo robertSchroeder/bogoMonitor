@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
 
 (async () => {
 
-    const browser = await puppeteer.launch({headless:true,devtools: true ,args: ['--disable-infobars'],});
+    const browser = await puppeteer.launch({headless:false,devtools: true ,args: ['--disable-infobars'],});
     
     const page = await browser.newPage();
 
@@ -20,6 +20,12 @@ const puppeteer = require('puppeteer');
     await context.overridePermissions(url, []);
 
     await page.goto(url, { waitUntil: 'domcontentloaded' }); 
+
+    //Here we need to click on the button to enter store location.
+
+    const storeAddressSelector = 'button[class="store-button ellipsis-width"]';
+
+    page.click(storeAddressSelector);
 
     // Wait for the location input field to appear  
     const searchSelector = "input[placeholder='Enter a City, State, or Zip Code']";
