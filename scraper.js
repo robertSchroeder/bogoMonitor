@@ -27,7 +27,7 @@ const puppeteer = require('puppeteer');
 
     page.click(storeAddressSelector);
 
-    await page.waitForNavigation({ waitUntil: 'networkidle0' });
+    await page.waitForNavigation({ waitUntil: 'networkidle0' }); // very important! need to wait for dynamic content to load
 
     // Wait for the location input field to appear  
     const searchSelector = "input[placeholder='Enter a City, State, or Zip Code']";
