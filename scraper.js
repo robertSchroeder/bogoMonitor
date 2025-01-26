@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
 
 
     // Disabling infobars from the headless browser seems to make it a bit faster. 
-    const browser = await puppeteer.launch({headless:true,args: ['--disable-infobars']});
+    const browser = await puppeteer.launch({headless:false,args: ['--disable-infobars']});
     
     const page = await browser.newPage();
 
@@ -26,6 +26,8 @@ const puppeteer = require('puppeteer');
     const storeAddressSelector = 'button[class="store-button ellipsis-width"]';
 
     page.click(storeAddressSelector);
+
+    await page.waitForNavigation({ waitUntil: 'networkidle0' });
 
     // Wait for the location input field to appear  
     const searchSelector = "input[placeholder='Enter a City, State, or Zip Code']";
