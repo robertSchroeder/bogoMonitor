@@ -65,7 +65,7 @@ const puppeteer = require('puppeteer');
   // Selector for the "Load more" button
   const loadMoreButtonSelector = 'button[data-qa-automation="button-Load more"]';
 
-// Basically an infinite loop that only breaks after the waitForSelector for the loadMoreButtonSelector throws a timeout error.
+// Basically an infinite loop that only breaks after the waitForSelector for the loadMoreButtonSelector throws a timeout error
 // once we've clicked all of its instances and it stops appearing on the page.  
 
   while (true) {
@@ -91,7 +91,7 @@ const puppeteer = require('puppeteer');
     productContainers.map((product) => { 
       const nameElement = product.querySelector('div.content-wrapper > div.top-section > div > button > span');
 
-      return nameElement ? nameElement.innerText.trim() : 'NO NAME FOUND';
+      return nameElement ? nameElement.innerText.trim() : 'NO NAME IN CURRENT CONTAINER FOUND';
     })
   );
 
