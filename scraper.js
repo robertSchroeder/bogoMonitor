@@ -1,5 +1,3 @@
-const fs = require('fs');
- 
 const puppeteer = require('puppeteer');
 
 (async () => {
@@ -37,9 +35,7 @@ const puppeteer = require('puppeteer');
     console.log('Entering Store Location');
 
     //Wait for the iput element to appear
-    await page.waitForSelector(searchSelector, {
-      visible: true,
-    });
+    await page.waitForSelector(searchSelector, {visible: true});
 
     await page.type(searchSelector, storeAddress);
 
