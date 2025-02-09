@@ -21,15 +21,20 @@ const puppeteer = require('puppeteer');
 
     await page.goto(url, { waitUntil: 'domcontentloaded' }); 
 
-    //Here we need to click on the button to enter store location.
+    /*Publix seems to alternate between different web designs from time to time.
+    
+    The code below that's been commented out is for a previous version of the page that may reappear, so I'm leaving it in.
 
-    const storeAddressSelector = 'button[class="store-button ellipsis-width"]';
+    // const storeAddressSelector = 'button[class="store-button ellipsis-width"]';
 
-    page.click(storeAddressSelector);
+    // page.click(storeAddressSelector);
 
-    await page.waitForNavigation({ waitUntil: 'networkidle0' }); // very important! need to wait for dynamic content to load
+    // await page.waitForNavigation({ waitUntil: 'networkidle0' }); // very important! need to wait for dynamic content to load
 
     // Wait for the location input field to appear  
+    
+    */
+
     const searchSelector = "input[placeholder='Enter a City, State, or Zip Code']";
 
     // Type the address into the input field
