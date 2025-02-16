@@ -6,7 +6,8 @@ const puppeteer = require('puppeteer');
     // Disabling infobars from the headless browser seems to make it a bit faster. 
     const browser = await puppeteer.launch({headless:true,args: ['--disable-infobars']});
 
-    //For running with VM, which has trouble w/ sandboxing, use the following: 
+    //For running with VM, which has trouble w/ sandboxing, use the following:
+     
     //const browser = await puppeteer.launch({headless:true,args: ['--disable-infobars','--no-sandbox', '--disable-setuid-sandbox']});
     
     const page = await browser.newPage();
