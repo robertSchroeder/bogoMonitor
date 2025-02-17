@@ -10,6 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "dotenv": "^16.4.7",
+    "node-mailjet": "^6.0.6",
     "puppeteer": "^24.1.1"
   }
 }

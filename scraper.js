@@ -1,4 +1,41 @@
-const puppeteer = require('puppeteer');
+require('dotenv').config();
+const puppeteer = require('puppeteer'); 
+const Mailjet = require('node-mailjet');
+
+const mailJetApiKey = process.env.mailjetApiKey;
+const mailjetSecreteKey = process.env.mailjetSecreteKey;
+const emailAddress = process.env.emailAddress;
+
+const mailjet = Mailjet.apiConnect(
+  mailJetApiKey, 
+  mailjetSecreteKey
+);
+
+async function sendEmailNotification(productName) {
+  try {
+      await mailjet.post("send", { version: "v3.1" }).request({
+          Messages: [
+              {
+                  From: {
+                      Email: emailAddress,
+                      Name: "Publix BOGO Notifier"
+                  },
+                  To: [
+                      {
+                          Email: emailAddress,
+                          Name: "User"
+                      }
+                  ],
+                  Subject: `🔔 Alert: ${productName} is on Sale!`,
+                  TextPart: `The product "${productName}" is now available on Publix's BOGO deals.`,
+              }
+          ]
+      });
+      console.log(`✅ Email notification sent for ${productName}`);
+  } catch (error) {
+      console.error('❌ Error sending email:', error.message);
+  }
+}
 
 (async () => {
 
@@ -94,7 +131,7 @@ const puppeteer = require('puppeteer');
   // Define the product container and target product name
   const productContainerSelector = 'div.p-grid-item'; 
 
-  const targetProductName = 'Fiji Natural Artesian Water'; // Replace with your target product name
+  const targetProductName = 'Nature Valley Bars'; // Replace with your target product name
 
   const allProducts = await page.$$eval(productContainerSelector, (productContainers) =>
     productContainers.map((product) => { 
@@ -110,9 +147,12 @@ const puppeteer = require('puppeteer');
   const isProductFound = allProducts.includes(targetProductName);
 
   if (isProductFound) {
-    console.log(`Product "${targetProductName}" exists on the page.`);
+    console.log(`Product "${targetProductName}" is available! Sending email...`);
+    await sendEmailNotification(targetProductName);
+
   } else {
     console.log(`Product "${targetProductName}" was not found on the page.`);
+
   }
 
  await browser.close(); 
