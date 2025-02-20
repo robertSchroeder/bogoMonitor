@@ -43,7 +43,7 @@ async function sendEmailNotification(productName) {
     // Disabling infobars from the headless browser seems to make it a bit faster. 
     const browser = await puppeteer.launch({headless:true,args: ['--disable-infobars']});
 
-    //For running with VM, which has trouble w/ sandboxing, use the following:
+    //For running with VM, which can't easily run a browser instance w/ sandboxing, use the following:
      
     //const browser = await puppeteer.launch({headless:true,args: ['--disable-infobars','--no-sandbox', '--disable-setuid-sandbox']});
     
@@ -131,7 +131,7 @@ async function sendEmailNotification(productName) {
   // Define the product container and target product name
   const productContainerSelector = 'div.p-grid-item'; 
 
-  const targetProductName = 'Nature Valley Bars'; // Replace with your target product name
+  const targetProductName = 'Weber Seasoning'; // Replace with your target product name
 
   const allProducts = await page.$$eval(productContainerSelector, (productContainers) =>
     productContainers.map((product) => { 
