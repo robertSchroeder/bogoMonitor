@@ -43,9 +43,11 @@ async function sendEmailNotification(productName) {
     // Disabling infobars from the headless browser seems to make it a bit faster. 
     const browser = await puppeteer.launch({headless:false,args: ['--disable-infobars']});
 
-    //For running with VM, which can't easily run a browser instance w/ sandboxing, use the following:
+    //For running with VM, which can't easily run a browser instance w/ sandboxing,so we use the following on it:
      
     //const browser = await puppeteer.launch({headless:true,args: ['--disable-infobars','--no-sandbox', '--disable-setuid-sandbox']});
+
+    // note: Remember to remove the previous "browser" declaration when implementing the above on VM.
     
     const page = await browser.newPage();
 
