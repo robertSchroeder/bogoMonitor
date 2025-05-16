@@ -39,6 +39,8 @@ async function sendEmailNotification(productName) {
 
 (async () => {
 
+    const storeAddress = "121 SW 22nd Ave, Miami, FL 33135";
+    const targetProductName = 'Weber Seasoning'; // Replace with your target product name
 
     // Disabling infobars from the headless browser seems to make it a bit faster. 
     const browser = await puppeteer.launch({headless:false,args: ['--disable-infobars']});
@@ -80,12 +82,9 @@ async function sendEmailNotification(productName) {
 
     // Wait for the location input field to appear  
     
-   
-
     const searchSelector = "input[placeholder='Enter a City, State, or Zip Code']";
 
     // Type the address into the input field
-    const storeAddress = "121 SW 22nd Ave, Miami, FL 33135";
     console.log('Entering Store Location');
 
     //Wait for the iput element to appear
@@ -136,8 +135,6 @@ async function sendEmailNotification(productName) {
 
   // Define the product container and target product name
   const productContainerSelector = 'div.p-grid-item'; 
-
-  const targetProductName = 'Weber Seasoning'; // Replace with your target product name
 
   const allProducts = await page.$$eval(productContainerSelector, (productContainers) =>
     productContainers.map((product) => { 
