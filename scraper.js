@@ -64,8 +64,7 @@ async function sendEmailNotification(productName) {
     const context = browser.defaultBrowserContext();
     await context.overridePermissions(url, []);
 
-    await page.goto(url, { waitUntil: 'domcontentloaded' }); 
-
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
     /*Publix seems to alternate between different web designs from time to time.
 
     In the version of the code below, they'll automatically assign a store location; which requires us to click on a specific button to enter the address of the desired store.
