@@ -37,7 +37,7 @@ async function sendEmailNotification(productName) {
   }
 }
 
-(async () => {
+(async () => { //self-invoking ,asynchronous, arrow function that runs the code below. 
 
     const storeAddress = "121 SW 22nd Ave, Miami, FL 33135";
     const targetProductName = 'Weber Seasoning'; // Replace with your target product name
@@ -126,6 +126,8 @@ async function sendEmailNotification(productName) {
       await page.waitForSelector(loadMoreButtonSelector, { visible: true, timeout: 10000 });
 
       await page.click(loadMoreButtonSelector);
+
+      console.log('loadMore button selected');
     
     } catch (error) {
       
