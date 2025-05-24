@@ -64,6 +64,7 @@ async function sendEmailNotification(productName) {
     const context = browser.defaultBrowserContext();
     await context.overridePermissions(url, []);
 
+    // waits until the domcontentloaded event occurs; gives it additional wait time for it to occur.  
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
     
     /*Publix seems to alternate between different web designs from time to time.
