@@ -43,7 +43,7 @@ async function sendEmailNotification(productName) {
     const targetProductName = 'Weber Seasoning'; // Replace with your target product name
 
     // Disabling infobars from the headless browser seems to make it a bit faster. 
-    const browser = await puppeteer.launch({headless:false,args: ['--disable-infobars']});
+    const browser = await puppeteer.launch({headless:false, defaultViewport: null,args: ['--disable-infobars','--window-size=1440,900']});
 
     //For running with VM, which can't easily run a browser instance w/ sandboxing,so we use the following on it:
      
@@ -65,7 +65,7 @@ async function sendEmailNotification(productName) {
     await context.overridePermissions(url, []);
 
     // waits until the domcontentloaded event occurs; gives it additional wait time for it to occur.  
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+   await page.goto(url, { waitUntil: 'networkidle0' });
     
     /*Publix seems to alternate between different web designs from time to time.
 
@@ -75,12 +75,12 @@ async function sendEmailNotification(productName) {
     
     */
 
-    const storeAddressSelector = 'button[class="store-button ellipsis-width"]';
+    const storeAddressSelector = 'button.p-store-location-button.button--store-selected';
 
-    page.click(storeAddressSelector);
-
-    await page.waitForNavigation({ waitUntil: 'networkidle0' }); // very important! need to wait for dynamic content to load
-
+    await page.waitForSelector(storeAddressSelector, { visible: true }); // ensures it exists and is visible
+    await page.click(storeAddressSelector); // waits for the click to complete
+    //await page.waitForNavigation({ waitUntil: 'networkidle0' }); // very important! need to wait for dynamic content to load
+//await page.waitForNavigation({ waitUntil: 'domcontentloaded'});
     // Wait for the location input field to appear  
     
     const searchSelector = "input[placeholder='Enter a City, State, or Zip Code']";
@@ -90,6 +90,10 @@ async function sendEmailNotification(productName) {
 
     //Wait for the iput element to appear
     await page.waitForSelector(searchSelector, {visible: true});
+
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    await page.click(searchSelector);
 
     await page.type(searchSelector, storeAddress);
 
@@ -112,7 +116,7 @@ async function sendEmailNotification(productName) {
 
    // Wait for the second page to fully load
    await page.waitForNavigation({ waitUntil: 'networkidle0' });
-   console.log('Second page loaded.');
+   console.log('Products page loaded.');
 
   // Selector for the "Load more" button
   const loadMoreButtonSelector = 'button[data-qa-automation="button-Load more"]';
@@ -128,6 +132,8 @@ async function sendEmailNotification(productName) {
 
       await page.click(loadMoreButtonSelector);
 
+      await page.waitForNavigation({ waitUntil: 'networkidle0' });
+
       console.log('loadMore button selected');
     
     } catch (error) {
@@ -139,6 +145,11 @@ async function sendEmailNotification(productName) {
   // Define the product container and target product name
   const productContainerSelector = 'div.p-grid-item'; 
 
+  // await page.waitForSelector(productContainerSelector, { visible: true });
+  //await page.waitForNavigation({ waitUntil: 'networkidle0' });
+  
+
+ 
   const allProducts = await page.$$eval(productContainerSelector, (productContainers) =>
     productContainers.map((product) => { 
       const nameElement = product.querySelector('div.content-wrapper > div.top-section > div > button > span');
@@ -164,5 +175,4 @@ async function sendEmailNotification(productName) {
  await browser.close(); 
     
         
-
 })();
