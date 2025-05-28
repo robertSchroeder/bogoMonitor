@@ -112,7 +112,7 @@ async function sendEmailNotification(productName) {
 
    // Wait for the second page to fully load
    await page.waitForNavigation({ waitUntil: 'networkidle0' });
-   console.log('Second page loaded.');
+   console.log('Product page loaded.');
 
   // Selector for the "Load more" button
   const loadMoreButtonSelector = 'button[data-qa-automation="button-Load more"]';
