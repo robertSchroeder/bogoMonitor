@@ -115,8 +115,8 @@ async function sendEmailNotification(productName) {
   }
 
    // Wait for the second page to fully load
-   await page.waitForNavigation({ waitUntil: 'networkidle0' });
-   console.log('Products page loaded.');
+  //await page.waitForNavigation({ waitUntil: 'domcontentloaded' });
+  console.log('Products page loaded.');
 
   // Selector for the "Load more" button
   const loadMoreButtonSelector = 'button[data-qa-automation="button-Load more"]';
@@ -124,23 +124,23 @@ async function sendEmailNotification(productName) {
 // Basically an infinite loop that only breaks after the waitForSelector for the loadMoreButtonSelector throws a timeout error
 // once we've clicked all of its instances and it stops appearing on the page.  
 
-  while (true) {
+  // while (true) {
     
-    try {
+  //   try {
       
-      await page.waitForSelector(loadMoreButtonSelector, { visible: true, timeout: 10000 });
+  //     await page.waitForSelector(loadMoreButtonSelector, { visible: true, timeout: 10000 });
 
-      await page.click(loadMoreButtonSelector);
+  //     await page.click(loadMoreButtonSelector);
 
-      await page.waitForNavigation({ waitUntil: 'networkidle0' });
+  //     await page.waitForNavigation({ waitUntil: 'networkidle0' });
 
-      console.log('loadMore button selected');
+  //     console.log('loadMore button selected');
     
-    } catch (error) {
+  //   } catch (error) {
       
-      break;
-    }
-  }
+  //     break;
+  //   }
+  // }
 
   // Define the product container and target product name
   const productContainerSelector = 'div.p-grid-item'; 
